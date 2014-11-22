@@ -58,6 +58,7 @@ class cassandra::config(
         ensure  => file,
         content => template("${module_name}/cassandra-env.sh.erb"),
     }
+
     file { "${config_path}/cassandra.yaml":
         ensure  => file,
         content => template("${module_name}/cassandra${version}.yaml.erb"),

@@ -1,0 +1,9 @@
+# This file is managed by Puppet - any manual edits will be lost
+
+# Cassandra Node IP=Data Center:Rack
+
+<% @topology.each do |atopology| %>
+<%= atopology %>
+<% end %>
+
+default=<%= @topology_default %>

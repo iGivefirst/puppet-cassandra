@@ -269,4 +269,25 @@ class cassandra::params {
         undef   => 'running',
         default => $::cassandra_service_ensure,
     }
+
+    $topology = $::cassandra_topology ? {
+        undef   => [],
+        default => $::cassandra_topology,
+    }
+    
+    $topology_default = $::cassandra_topoclogy_default ? {
+        undef   => 'DC1:RAC1',
+        default => $::cassandra_topoclogy_default,
+    }
+    
+    $opscenter_ip = $::cassandra_opscenter_ip ? {
+        undef   => '',
+        default => $::cassandra_opscenter_ip,
+    }
+
+    $opscenter_version = $::cassandra_opscenter_version ? {
+        undef   => '',
+        default => $::cassandra_opscenter_version,
+    }
+
 }

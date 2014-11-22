@@ -1,16 +1,8 @@
 class cassandra::install {
 
-    if !defined (Package['java']) {
-      package { 'java':
-        ensure  => installed,
-        name    => 'openjdk-7-jre'
-      }
-    }
-
     package { 'dsc':
         ensure  => $cassandra::version,
         name    => $cassandra::package_name,
-        require => Package['java']
     }
 
     $python_cql_name = $::osfamily ? {
