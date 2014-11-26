@@ -3,7 +3,7 @@ class cassandra::agent(
   $opscenter_version,
 ) {
 
-  validate_bool(is_ip_address($opscenter_ip), 'no ip address for opscenter defined')
+  validate_bool(is_ip_address($opscenter_ip))
   
   file { "/var/lib/datastax-agent/conf/address.yaml":
     ensure  => file,
@@ -20,4 +20,5 @@ class cassandra::agent(
     subscribe  => File['/var/lib/datastax-agent/conf/address.yaml'],
     require    => File['/var/lib/datastax-agent/conf/address.yaml'],
   }
+
 }
