@@ -1,4 +1,12 @@
 node default {
+  service { 'dse':
+    ensure => "stopped",
+  } ~>
+  
+  package { 'dse':
+    ensure => "absent"
+  } ~>
+
   class { 'cassandra':
     version             => '2.0.11',
     seeds               => [$::fqdn, 'cassandra02.local'],
@@ -10,5 +18,5 @@ node default {
     opscenter_version   => '5.0.1',
     cluster_name        => 'goldgriff',
     partitioner         => 'org.apache.cassandra.dht.RandomPartitioner', 
-}
+  } 
 }
