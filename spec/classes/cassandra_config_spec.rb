@@ -37,7 +37,7 @@ describe 'cassandra::config' do
       :endpoint_snitch            => 'SimpleSnitch',
       :internode_compression      => 'all',
       :disk_failure_policy        => 'stop',
-      :start_native_transport     => 'false',
+      :start_native_transport     => 'true',
       :start_rpc                  => 'true',
       :native_transport_port      => 9042,
       :num_tokens                 => 256,

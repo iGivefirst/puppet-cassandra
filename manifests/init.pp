@@ -200,5 +200,5 @@ class cassandra(
 
     anchor { 'cassandra::end': }
 
-    Anchor['cassandra::begin'] -> Class['cassandra::install'] -> Class['cassandra::config'] ~> Class['cassandra::service'] -> Anchor['cassandra::end']
+    Anchor['cassandra::begin'] -> Class['cassandra::install'] -> Class['cassandra::config'] ~> Class['cassandra::topology'] ~> Class['cassandra::service'] -> Class['cassandra::agent'] ~> Anchor['cassandra::end']
 }

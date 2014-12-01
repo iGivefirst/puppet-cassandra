@@ -63,7 +63,7 @@ class cassandra::params {
     case $::osfamily {
         'Debian': {
             $package_name = $::cassandra_package_name ? {
-                undef   => 'dsc12',
+                undef   => 'cassandra',
                 default => $::cassandra_package_name,
             }
 
@@ -99,7 +99,7 @@ class cassandra::params {
     }
 
     $version = $::cassandra_version ? {
-        undef   => '2.0.10',
+        undef   => '2.0.11',
         default => $::cassandra_version,
     }
 
@@ -236,7 +236,7 @@ class cassandra::params {
     }
 
     $start_native_transport = $::cassandra_start_native_transport ? {
-        undef   => 'false',
+        undef   => 'true',
         default => $::cassandra_start_native_transport,
     }
 
@@ -275,9 +275,9 @@ class cassandra::params {
         default => $::cassandra_topology,
     }
     
-    $topology_default = $::cassandra_topoclogy_default ? {
+    $topology_default = $::cassandra_topology_default ? {
         undef   => 'DC1:RAC1',
-        default => $::cassandra_topoclogy_default,
+        default => $::cassandra_topology_default,
     }
     
     $opscenter_ip = $::cassandra_opscenter_ip ? {

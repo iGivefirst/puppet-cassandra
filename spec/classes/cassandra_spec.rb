@@ -7,11 +7,16 @@ describe 'cassandra' do
       :lsbdistid => 'debian',
       :processorcount => 4,
       :lsbdistcodename => 'squeeze',
-      :ipaddress => '1.2.3.4'
+      :ipaddress => '1.2.3.4',
     }
   end
 
-  let(:params) {{ :seeds => ['1.2.3.4'], :broadcast_address => '4.3.2.1' }}
+  let(:params) {{ 
+    :seeds              => ['1.2.3.4'], 
+    :broadcast_address  => '4.3.2.1', 
+    :topology_default   => 'Cassandra:RAC1', 
+    :topology           => ['1.2.3.4=Cassandra:RAC1'],
+  }}
 
   context 'verify module' do
 
@@ -109,14 +114,35 @@ describe 'cassandra' do
         :endpoint_snitch            => 'SimpleSnitch',
         :internode_compression      => 'all',
         :disk_failure_policy        => 'stop',
-        :start_native_transport     => 'false',
+        :start_native_transport     => 'true',
         :start_rpc                  => 'true',
         :native_transport_port      => 9042,
         :num_tokens                 => 256,
       })
     end
+     
+    ## Topology config resources. No dedicated spec file as it references variables
+    ## from cassandra
+    it 'does contain class cassandra::topology' do
+      should contain_class('cassandra::topology').with({
+        :config_path      => '/etc/cassandra',
+        :topology         => ['1.2.3.4=Cassandra:RAC1'],
+        :topology_default => 'Cassandra:RAC1',
+      })
+    end
 
-    ## ervice related resources. No dedicated spec file as it references variables
+
+    ## Topology config file.
+    it 'file /etc/cassandra/cassandra-topology.properties' do
+      should contain_file('/etc/cassandra/cassandra-topology.properties').with({
+        :ensure  => 'file',
+        :path    => '/etc/cassandra/cassandra-topology.properties',
+        :owner   => 'cassandra',
+        :group   => 'cassandra',
+        :content => /# This file is managed by Puppet - any manual edits will be lost\n\n# Cassandra Node IP=Data Center:Rack\n\n\n1.2.3.4=Cassandra:RAC1\n\n\ndefault=Cassandra:RAC1\n/,
+      })  
+    end 
+    ## Service related resources. No dedicated spec file as it references variables
     ## from cassandra
     it 'does contain class cassandra::service' do
       should contain_class('cassandra::service')
@@ -162,7 +188,7 @@ describe 'cassandra' do
                     :data_file_directories      => [[['a', 'b']], ['bozo', '']],
                     :jmx_port                   => [[1, 65535], [420000, true]],
                     :listen_address             => [['1.2.3.4'], ['4.5.6']],
-		    :broadcast_address          => [['1.2.3.4'], ['1.2', 'foo']],
+                    :broadcast_address          => [['1.2.3.4'], ['1.2', 'foo']],
                     :rpc_address                => [['1.2.3.4'], ['4.5.6']],
                     :rpc_port                   => [[1, 65535], [420000, true]],
                     :storage_port               => [[1, 65535], [420000, true]],

@@ -4,11 +4,18 @@ class cassandra::agent(
 ) {
 
   validate_bool(is_ip_address($opscenter_ip))
+
+  $agent_conf = '/var/lib/datastax-agent/conf/address.yaml'
   
-  file { "/var/lib/datastax-agent/conf/address.yaml":
+  file { $agent_conf:
     ensure  => file,
     content => template("${module_name}/address.yaml.erb"),
+    owner   => 'opscenter-agent',
+    group   => 'opscenter-agent',
   }
+
+  notify {"Running template ${module_name} $agent_conf":}
+
   
   package { 'datastax-agent':
     ensure => $opscenter_version,
@@ -17,8 +24,8 @@ class cassandra::agent(
   service { 'datastax-agent':
     ensure     => running,
     enable     => true,
-    subscribe  => File['/var/lib/datastax-agent/conf/address.yaml'],
-    require    => File['/var/lib/datastax-agent/conf/address.yaml'],
+    subscribe  => File[$agent_conf],
+    require    => File[$agent_conf],
   }
 
 }
