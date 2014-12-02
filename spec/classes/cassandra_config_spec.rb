@@ -42,6 +42,8 @@ describe 'cassandra::config' do
       :native_transport_port      => 9042,
       :num_tokens                 => 256,
       :thread_stack_size          => 180,
+      :rpc_max_threads            => 256,
+      :rpc_min_threads            => 16,
     }
   end
 
@@ -121,8 +123,11 @@ describe 'cassandra::config' do
       :native_transport_port      => 9042,
       :num_tokens                 => 256,
       :thread_stack_size          => 128,
+      :rpc_max_threads            => 256,
+      :rpc_min_threads            => 16,
     }
   end
+
   it 'does contain group cassandra' do
     should contain_group('cassandra').with({
       :ensure  => 'present',

@@ -89,13 +89,11 @@ class cassandra(
         fail('jmx_port must be a port number between 1 and 65535')
     }
 
-    if(!is_ip_address($listen_address)) {
-        fail('listen_address must be an IP address')
-    }
+    validate_string($listen_address)
 
-    if(!empty($broadcast_address) and !is_ip_address($broadcast_address)) {
-        fail('broadcast_address must be an IP address')
-    }
+#    if(!empty($broadcast_address) && !is_string($broadcast_address)) {
+#        fail('broadcast_address must be an IP address or a hostname')
+#    }
 
     if(!is_ip_address($rpc_address)) {
         fail('rpc_address must be an IP address')
@@ -181,8 +179,8 @@ class cassandra(
         internode_compression      => $internode_compression,
         disk_failure_policy        => $disk_failure_policy,
         thread_stack_size          => $thread_stack_size,
-        rpc_min_threads            => $cassandra::params::rpc_min_threads,
-        rpc_max_threads            => $cassandra::params::rpc_max_threads,
+        rpc_min_threads            => $rpc_min_threads,
+        rpc_max_threads            => $rpc_max_threads,
     }
 
     class { 'cassandra::topology':

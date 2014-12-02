@@ -118,6 +118,8 @@ describe 'cassandra' do
         :start_rpc                  => 'true',
         :native_transport_port      => 9042,
         :num_tokens                 => 256,
+        :rpc_max_threads            => 2048,
+        :rpc_min_threads            => 16,
       })
     end
      
@@ -187,8 +189,6 @@ describe 'cassandra' do
                     :seeds                      => [[['a', 'b']], ['bozo', []]],
                     :data_file_directories      => [[['a', 'b']], ['bozo', '']],
                     :jmx_port                   => [[1, 65535], [420000, true]],
-                    :listen_address             => [['1.2.3.4'], ['4.5.6']],
-                    :broadcast_address          => [['1.2.3.4'], ['1.2', 'foo']],
                     :rpc_address                => [['1.2.3.4'], ['4.5.6']],
                     :rpc_port                   => [[1, 65535], [420000, true]],
                     :storage_port               => [[1, 65535], [420000, true]],
