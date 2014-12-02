@@ -1,18 +1,11 @@
 node default {
-  service { 'dse':
-    ensure => "stopped",
-  } ~>
   
-  package { 'dse':
-    ensure => "absent"
-  } ~>
-
   class { 'cassandra':
     version             => '2.0.11',
     seeds               => [$::fqdn, 'cassandra02.local'],
     num_tokens          => 1,
     topology_default    => 'Cassandra:rack1', 
-    topology            => ["${::hostname}=Cassandra:rack1"],
+    topology            => ["${::fqdn}=Cassandra:rack1"],
     service_enable      => 'false',
     opscenter_ip        => '192.168.180.1',
     opscenter_version   => '5.0.1',
@@ -22,5 +15,7 @@ node default {
     heap_newsize        => '800M',
     endpoint_snitch     => 'PropertyFileSnitch',
     listen_address      => $::fqdn,
-  } 
+  } ~> service { 'dse':
+    ensure => "stopped",
+  }
 }
