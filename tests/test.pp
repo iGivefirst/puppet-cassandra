@@ -20,6 +20,7 @@ node default {
     partitioner         => 'org.apache.cassandra.dht.RandomPartitioner', 
     max_heap_size       => '3G',
     heap_newsize        => '800M',
-    endpoint_snitch     => 'PropertyFileSnitch'
+    endpoint_snitch     => 'PropertyFileSnitch',
+    listen_address      => $::fqdn,
   } 
 }
