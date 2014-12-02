@@ -50,6 +50,8 @@ class cassandra(
     $topology                   = $cassandra::params::topology,
     $opscenter_ip               = $cassandra::params::opscenter_ip,
     $opscenter_version          = $cassandra::params::opscenter_version,
+    $rpc_min_threads            = $cassandra::params::rpc_min_threads,
+    $rpc_max_threads            = $cassandra::params::rpc_max_threads,
 ) inherits cassandra::params {
     # Validate input parameters
     validate_bool($include_repo)
@@ -179,6 +181,8 @@ class cassandra(
         internode_compression      => $internode_compression,
         disk_failure_policy        => $disk_failure_policy,
         thread_stack_size          => $thread_stack_size,
+        rpc_min_threads            => $cassandra::params::rpc_min_threads,
+        rpc_max_threads            => $cassandra::params::rpc_max_threads,
     }
 
     class { 'cassandra::topology':

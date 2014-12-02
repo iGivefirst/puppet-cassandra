@@ -290,4 +290,13 @@ class cassandra::params {
         default => $::cassandra_opscenter_version,
     }
 
+    $rpc_max_threads = $::cassandra_rpc_max_threads ? {
+        undef   => 2048,
+        default => $::cassandra_rpc_max_threads,
+    }
+
+    $rpc_min_threads = $::cassandra_rpc_min_threads ? {
+        undef   => 16,
+        default => $::cassandra_rpc_min_threads,
+    }
 }

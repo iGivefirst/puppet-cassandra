@@ -32,6 +32,8 @@ class cassandra::config(
     $internode_compression,
     $disk_failure_policy,
     $thread_stack_size,
+    $rpc_max_threads,
+    $rpc_min_threads,
 ) {
     group { 'cassandra':
         ensure  => present,

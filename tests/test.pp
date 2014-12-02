@@ -18,5 +18,8 @@ node default {
     opscenter_version   => '5.0.1',
     cluster_name        => 'goldgriff',
     partitioner         => 'org.apache.cassandra.dht.RandomPartitioner', 
+    max_heap_size       => '3G',
+    heap_newsize        => '800M',
+    endpoint_snitch     => 'PropertyFileSnitch'
   } 
 }
