@@ -1,7 +1,7 @@
 node default {
   class { 'cassandra':
     version             => '2.0.11',
-    seeds               => [$::fqdn, 'cassandra02.local'],
+    seeds               => ['cassandra01.local', 'cassandra02.local'],
     num_tokens          => 1,
     topology_default    => 'Cassandra:rack1', 
     topology            => ["${::fqdn}=Cassandra:rack1"],
