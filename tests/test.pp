@@ -3,7 +3,7 @@ node default {
     version           => '2.0.11',
     seeds             => ['cassandra01.local', 'cassandra02.local'],
     num_tokens        => 1,
-    initial_token     => $my_intial_token
+    initial_token     => $my_intial_token,
     topology_default  => 'Cassandra:rack1', 
     topology          => ["${::fqdn}=Cassandra:rack1"],
     opscenter_ip      => '192.168.180.1',
