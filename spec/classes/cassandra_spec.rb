@@ -12,7 +12,7 @@ describe 'cassandra' do
   end
 
   let(:params) {{ 
-    :seeds              => ['1.2.3.4'], 
+    :seeds              => ['1.2.3.4','2.3.4.5'], 
     :broadcast_address  => '4.3.2.1', 
     :topology_default   => 'Cassandra:RAC1', 
     :topology           => ['1.2.3.4=Cassandra:RAC1'],
@@ -104,7 +104,7 @@ describe 'cassandra' do
         :commitlog_directory        => '/var/lib/cassandra/commitlog',
         :saved_caches_directory     => '/var/lib/cassandra/saved_caches',
         :initial_token              => '',
-        :seeds                      => ['1.2.3.4'],
+        :seeds                      => ['1.2.3.4','2.3.4.5'],
         :concurrent_reads           => 32,
         :concurrent_writes          => 32,
         :incremental_backups        => 'false',

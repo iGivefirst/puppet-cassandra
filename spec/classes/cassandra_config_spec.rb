@@ -27,7 +27,7 @@ describe 'cassandra::config' do
       :commitlog_directory        => '/var/lib/cassandra/commitlog',
       :saved_caches_directory     => '/var/lib/cassandra/saved_caches',
       :initial_token              => '',
-      :seeds                      => ['1.2.3.4'],
+      :seeds                      => ['1.2.3.4','2.3.4.5'],
       :concurrent_reads           => 32,
       :concurrent_writes          => 32,
       :incremental_backups        => 'false',
@@ -108,7 +108,7 @@ describe 'cassandra::config' do
       :commitlog_directory        => '/var/lib/cassandra/commitlog',
       :saved_caches_directory     => '/var/lib/cassandra/saved_caches',
       :initial_token              => '',
-      :seeds                      => ['1.2.3.4'],
+      :seeds                      => ['1.2.3.4','2.3.4.5'],
       :concurrent_reads           => 32,
       :concurrent_writes          => 32,
       :incremental_backups        => 'false',
@@ -161,6 +161,17 @@ describe 'cassandra::config' do
       :content => /cluster_name: 'Cassandra'/,
     })
   end
+
+# NOT WORKING ... regex problems
+#  it 'does contain file /etc/cassandra/conf/cassandra.yaml' do
+#    should contain_file('/etc/cassandra/conf/cassandra.yaml').with({
+#      :ensure  => 'file',
+#      :owner   => 'cassandra',
+#      :group   => 'cassandra',
+#      :mode    => '0644',
+#      :content => /seeds: '1.2.3.4.5,2.3.4.5'/,
+#    })
+#  end
   end
 
 end
